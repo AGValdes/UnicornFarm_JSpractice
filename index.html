@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Unicorn Farm</title>
+</head>
+
+<body>
+  <header>
+    <h1>Ameilia's Unicorn Farm</h1>
+  </header>
+  <main>
+    <section id="form-container">
+      <form id="form">
+        <fieldset>
+          <label>Name
+            <input type="text" name="name" />
+          </label>
+          <label>Color
+            <input type="text" name="color" />
+          </label>
+          <label>Favorite Food
+            <input type="text" name="food" />
+          </label>
+          <label>Barn Location
+            <input name="barnLocation" id="barnA" type="radio" value="A" />
+            <label for="barnA">A</label>
+            <input name="barnLocation" id="barnB" type="radio" value="B" />
+            <label for="barnB">B</label>
+            <input name="barnLocation" id="barnC" type="radio" value="C" />
+            <label for="barnC">C</label>
+            <input name="barnLocation" id="barnD" type="radio" value="D" />
+            <label for="barnD">D</label>
+          </label>
+        </fieldset>
+        <input type="submit" id="submit" />
+      </form>
+    </section>
+
+    <section id="unicorn-container">
+      <h2>Unicorns in my Farm</h2>
+      <p>Currently Housing <span id="uni-total">0</span> Unicorns!</p>
+      <table>
+        <tbody id="unicorn-table"></tbody>
+      </table>
+    </section>
+
+    <section id="unicorns-by-barn">
+      <h2>Unicorns By Barn</h2>
+      <p>Barn A contains <span id="barn-a">0</span> unicorns!</p>
+    </section>
+
+  </main>
+  <footer>
+
+  </footer>
+  <script src="app.js"></script>
+</body>
+
+</html>
