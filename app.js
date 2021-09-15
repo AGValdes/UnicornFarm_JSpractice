@@ -27,7 +27,7 @@ function Unicorn(name, color, favoriteFood, barn) {
 
 //---------------Prototypes-----------//
 
-/// This prototype function will generate content and append it to our unicorn table ///
+/// This prototype function will generate content and append it to our unicorn table //
 Unicorn.prototype.renderContentRow = function () {
   //Create a table row element
   const trElement = document.createElement('tr');
@@ -90,6 +90,7 @@ function displayTotalUnicorns() {
   totalParent.textContent = grandTotalUnicorns.toString();
 }
 
+//itterates over the allUnicorns array and sorts them into different arrays based on Barn property
 function sortUnicornsByBarn() {
   for (var i = 0; i < grandTotalUnicorns; i++) {
     if (allUnicorns[i].Barn === "A" && !barnA.includes(allUnicorns[i])) {
@@ -120,19 +121,27 @@ function displayBarnATotal() {
 function handleSubmit(event) {
   event.preventDefault();
   tableParent.innerHTML = "";
+
   //Store the inputs from the form into variables
   let name = event.target.name.value;
   let color = event.target.color.value;
   let favFood = event.target.food.value;
   let barn = event.target.barnLocation.value;
+
   //create a new Unicorn instance and put it into a storage array
   let newUni = new Unicorn(name, color, favFood, barn);
   allUnicorns.push(newUni);
+  //increment total unicorns
   grandTotalUnicorns++;
+  //sort them by barn property
   sortUnicornsByBarn();
+  //display total unicorns per barn on page
   displayBarnATotal();
+  //render the header of the table so it appears on top
   renderTableHeader();
+  //render all other content
   renderAllContentRows();
+  //display total unicorns on page
   displayTotalUnicorns();
 }
 
