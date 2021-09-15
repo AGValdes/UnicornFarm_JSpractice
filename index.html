@@ -10,20 +10,13 @@
     <h1>Ameilia's Unicorn Farm</h1>
   </header>
   <main>
-    <section id="unicorn-container">
-      <h2>Unicorns in my Farm</h2>
-      <table>
-        <tbody id="unicorn-table"></tbody>
-      </table>
-    </section>
-
     <section id="form-container">
       <form id="form">
         <fieldset>
           <label>Name
             <input type="text" name="name" />
           </label>
-          <label>Color(s)
+          <label>Color
             <input type="text" name="color" />
           </label>
           <label>Favorite Food
@@ -44,10 +37,24 @@
       </form>
     </section>
 
+    <section id="unicorn-container">
+      <h2>Unicorns in my Farm</h2>
+      <p>Currently Housing <span id="uni-total">0</span> Unicorns!</p>
+      <table>
+        <tbody id="unicorn-table"></tbody>
+      </table>
+    </section>
+
+    <section id="unicorns-by-barn">
+      <h2>Unicorns By Barn</h2>
+      <p>Barn A contains <span id="barn-a">0</span> unicorns!</p>
+    </section>
+
   </main>
   <footer>
 
   </footer>
+  <script src="app.js"></script>
 </body>
 
 </html>
