@@ -1,20 +1,27 @@
 'use strict'
 
 //-------------Global Variables---------//
-let allUnicorns = [];
+
 const tableParent = document.getElementById('unicorn-table');
 const totalParent = document.getElementById('uni-total');
 const barnATotalParent = document.getElementById('barn-a');
+const formElement = document.getElementById('form');
+
+let allUnicorns = [];
 let grandTotalUnicorns = 0;
+
 let totalBarnA = 0;
 let barnA = [];
+
 let totalBarnB = 0;
 let barnB = [];
+
 let totalBarnC = 0;
 let barnC = [];
+
 let totalBarnD = 0;
 let barnD = [];
-let formElement = document.getElementById('form');
+
 
 //---------------Constructor-----------//
 
@@ -62,31 +69,31 @@ function renderTableHeader() {
   let headerArray = [];
 
   let headerRow = document.createElement("tr");
+  //create td elements for each property
   let nameCell = document.createElement('td');
-  headerArray.push(nameCell);
   let colorCell = document.createElement('td');
-  headerArray.push(colorCell);
   let foodCell = document.createElement('td');
-  headerArray.push(foodCell);
   let barnCell = document.createElement('td');
+  //push them into an Array
+  headerArray.push(nameCell);
+  headerArray.push(colorCell);
+  headerArray.push(foodCell);
   headerArray.push(barnCell);
-
+  //Change their text content
   nameCell.textContent = "Name";
   colorCell.textContent = "Color";
   foodCell.textContent = "Favorite Food";
   barnCell.textContent = "Barn Location";
-
+  //itterate over each element in the array and append them to the row.
   headerArray.forEach(cell => headerRow.appendChild(cell));
   tableParent.appendChild(headerRow);
 }
 
 function renderAllContentRows() {
   allUnicorns.forEach(unicorn => unicorn.renderContentRow());
-
 }
 
 function displayTotalUnicorns() {
-  console.log(grandTotalUnicorns);
   totalParent.textContent = grandTotalUnicorns.toString();
 }
 
@@ -147,4 +154,5 @@ function handleSubmit(event) {
 
 //------Executable Code--------//
 
+//calls the handleSubmit function when the submit input is triggered.
 formElement.addEventListener("submit", handleSubmit);
