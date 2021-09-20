@@ -5,7 +5,6 @@
 const tableParent = document.getElementById('unicorn-table');
 const totalParent = document.getElementById('uni-total');
 const barnTableParent = document.getElementById('barn-table');
-
 const formElement = document.getElementById('form');
 
 let allUnicorns = [];
@@ -13,7 +12,7 @@ let grandTotalUnicorns = 0;
 
 let allBarns = [];
 
-
+let favFoods = [];
 
 //---------------Constructor-----------//
 
@@ -166,26 +165,20 @@ function sortUnicornsByBarn() {
   }
 }
 
-function displayBarnATotal() {
-  barnATotalParent.textContent = barnA.Unicorns.length.toString();;
-  console.log("heelooo", barnA.Unicorns.length.toString());
-  console.log(barnATotalParent.textContent);
-}
-
-function displayBarnBTotal() {
-  barnATotalParent.textContent = barnB.ResidentTotal.toString();
-}
-
-function displayBarnCTotal() {
-  barnATotalParent.textContent = barnC.ResidentTotal.toString();
-}
-
-function displayBarnDTotal() {
-  barnATotalParent.textContent = barnD.ResidentTotal.toString();
+function getFavoriteFoods() {
+  allUnicorns.forEach(unicorn => favFoods.push(unicorn.FavoriteFood));
 }
 
 function showListOfFavFoods() {
-
+  getFavoriteFoods();
+  let parentUl = document.getElementById('food-list');
+  for (var i = 0; i < favFoods.length; i++) {
+    let liElement = document.createElement('li');
+    console.log(liElement);
+    liElement.textContent = favFoods[i];
+    console.log(favFoods[i]);
+    parentUl.appendChild(liElement);
+  }
 }
 
 //-------Event Handler Function------//
@@ -216,6 +209,8 @@ function handleSubmit(event) {
   //display tables containing unicorns by barn
   renderBarnTableHeader();
   renderAllBarnContentRows();
+
+  showListOfFavFoods();
 }
 
 //------Executable Code--------//
