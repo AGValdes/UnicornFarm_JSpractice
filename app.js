@@ -4,24 +4,15 @@
 
 const tableParent = document.getElementById('unicorn-table');
 const totalParent = document.getElementById('uni-total');
-const barnATotalParent = document.getElementById('barn-a');
+const barnTableParent = document.getElementById('barn-table');
 const formElement = document.getElementById('form');
 
 let allUnicorns = [];
 let grandTotalUnicorns = 0;
 
-let totalBarnA = 0;
-let barnA = [];
+let allBarns = [];
 
-let totalBarnB = 0;
-let barnB = [];
-
-let totalBarnC = 0;
-let barnC = [];
-
-let totalBarnD = 0;
-let barnD = [];
-
+let favFoods = [];
 
 //---------------Constructor-----------//
 
@@ -32,12 +23,26 @@ function Unicorn(name, color, favoriteFood, barn) {
   this.Barn = barn;
 }
 
+function Barn(name, unicorns) {
+  this.Name = name;
+  this.Unicorns = unicorns;
+
+}
+//------------Objects--------------//
+
+let barnA = new Barn("A", [])
+let barnB = new Barn("B", []);
+let barnC = new Barn("C", []);
+let barnD = new Barn("D", []);
+
+allBarns.push(barnA, barnB, barnC, barnD);
+
 //---------------Prototypes-----------//
 
 /// This prototype function will generate content and append it to our unicorn table //
 Unicorn.prototype.renderContentRow = function () {
   //Create a table row element
-  const trElement = document.createElement('tr');
+  let trElement = document.createElement('tr');
   //append it to the table element
   tableParent.appendChild(trElement);
   //Create a table header with the unicorn's name
@@ -60,6 +65,28 @@ Unicorn.prototype.renderContentRow = function () {
   uniBarn.textContent = this.Barn;
 
   trElement.appendChild(uniBarn);
+}
+
+Barn.prototype.renderContentRow = function () {
+  let trElement = document.createElement('tr');
+
+  barnTableParent.appendChild(trElement);
+  let barnName = document.createElement('th');
+  barnName.textContent = this.Name;
+
+  trElement.appendChild(barnName);
+
+  for (var i = 0; i < this.Unicorns.length; i++) {
+    let tdElement1 = document.createElement('td');
+    tdElement1.textContent = this.Unicorns[i].Name;
+
+    trElement.appendChild(tdElement1);
+  }
+  let tdElement2 = document.createElement('td');
+  tdElement2.textContent = this.Unicorns.length.toString();
+  if (tdElement2.textContent != 0) {
+    trElement.appendChild(tdElement2);
+  }
 }
 
 //-----------Helper Functions-----------//
@@ -89,8 +116,31 @@ function renderTableHeader() {
   tableParent.appendChild(headerRow);
 }
 
+function renderBarnTableHeader() {
+  let headerArray = [];
+  let headerRow = document.createElement('tr');
+  let barnCell = document.createElement('td');
+  let nameCell = document.createElement('td');
+  let totalCell = document.createElement('td');
+
+  headerArray.push(barnCell);
+  headerArray.push(nameCell);
+  headerArray.push(totalCell);
+
+  barnCell.textContent = "Barn";
+  nameCell.textContent = "Unicorn";
+  totalCell.textContent = "Total Unicorns";
+
+  headerArray.forEach(cell => headerRow.appendChild(cell));
+  barnTableParent.appendChild(headerRow);
+}
+
 function renderAllContentRows() {
   allUnicorns.forEach(unicorn => unicorn.renderContentRow());
+}
+
+function renderAllBarnContentRows() {
+  allBarns.forEach(barn => barn.renderContentRow());
 }
 
 function displayTotalUnicorns() {
@@ -100,27 +150,35 @@ function displayTotalUnicorns() {
 //itterates over the allUnicorns array and sorts them into different arrays based on Barn property
 function sortUnicornsByBarn() {
   for (var i = 0; i < grandTotalUnicorns; i++) {
-    if (allUnicorns[i].Barn === "A" && !barnA.includes(allUnicorns[i])) {
-      barnA.push(allUnicorns[i]);
-      totalBarnA++;
+    if (allUnicorns[i].Barn === "A" && !barnA.Unicorns.includes(allUnicorns[i])) {
+      barnA.Unicorns.push(allUnicorns[i]);
     }
-    else if (allUnicorns[i].Barn === "B" && !barnB.includes(allUnicorns[i])) {
-      barnB.push(allUnicorns[i]);
-      totalBarnB++;
+    else if (allUnicorns[i].Barn === "B" && !barnB.Unicorns.includes(allUnicorns[i])) {
+      barnB.Unicorns.push(allUnicorns[i]);
     }
-    else if (allUnicorns[i].Barn === "C" && !barnC.includes(allUnicorns[i])) {
-      barnC.push(allUnicorns[i]);
-      totalBarnC++;
+    else if (allUnicorns[i].Barn === "C" && !barnC.Unicorns.includes(allUnicorns[i])) {
+      barnC.Unicorns.push(allUnicorns[i]);
     }
-    else if (allUnicorns[i].Barn === "D" && !barnD.includes(allUnicorns[i])) {
-      barnD.push(allUnicorns[i]);
-      totalBarnD++;
+    else if (allUnicorns[i].Barn === "D" && !barnD.Unicorns.includes(allUnicorns[i])) {
+      barnD.Unicorns.push(allUnicorns[i]);
     }
   }
 }
 
-function displayBarnATotal() {
-  barnATotalParent.textContent = totalBarnA.toString();
+function getFavoriteFoods() {
+  allUnicorns.forEach(unicorn => favFoods.push(unicorn.FavoriteFood));
+}
+
+function showListOfFavFoods() {
+  getFavoriteFoods();
+  let parentUl = document.getElementById('food-list');
+  for (var i = 0; i < favFoods.length; i++) {
+    let liElement = document.createElement('li');
+    console.log(liElement);
+    liElement.textContent = favFoods[i];
+    console.log(favFoods[i]);
+    parentUl.appendChild(liElement);
+  }
 }
 
 //-------Event Handler Function------//
@@ -128,7 +186,7 @@ function displayBarnATotal() {
 function handleSubmit(event) {
   event.preventDefault();
   tableParent.innerHTML = "";
-
+  barnTableParent.innerHTML = "";
   //Store the inputs from the form into variables
   let name = event.target.name.value;
   let color = event.target.color.value;
@@ -142,14 +200,17 @@ function handleSubmit(event) {
   grandTotalUnicorns++;
   //sort them by barn property
   sortUnicornsByBarn();
-  //display total unicorns per barn on page
-  displayBarnATotal();
   //render the header of the table so it appears on top
   renderTableHeader();
   //render all other content
   renderAllContentRows();
   //display total unicorns on page
   displayTotalUnicorns();
+  //display tables containing unicorns by barn
+  renderBarnTableHeader();
+  renderAllBarnContentRows();
+
+  showListOfFavFoods();
 }
 
 //------Executable Code--------//
