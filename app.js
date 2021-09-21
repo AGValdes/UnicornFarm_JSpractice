@@ -9,9 +9,7 @@ const formElement = document.getElementById('form');
 
 let allUnicorns = [];
 let grandTotalUnicorns = 0;
-
 let allBarns = [];
-
 let favFoods = [];
 
 //---------------Constructor-----------//
@@ -79,10 +77,11 @@ Barn.prototype.renderContentRow = function () {
   for (var i = 0; i < this.Unicorns.length; i++) {
     let tdElement1 = document.createElement('td');
     tdElement1.textContent = this.Unicorns[i].Name;
-
     trElement.appendChild(tdElement1);
   }
+
   let tdElement2 = document.createElement('td');
+
   tdElement2.textContent = this.Unicorns.length.toString();
   if (tdElement2.textContent != 0) {
     trElement.appendChild(tdElement2);
@@ -92,7 +91,7 @@ Barn.prototype.renderContentRow = function () {
 //-----------Helper Functions-----------//
 
 //will generate the header of the table
-function renderTableHeader() {
+function renderUnicornTableHeader() {
   let headerArray = [];
 
   let headerRow = document.createElement("tr");
@@ -119,6 +118,7 @@ function renderTableHeader() {
 function renderBarnTableHeader() {
   let headerArray = [];
   let headerRow = document.createElement('tr');
+
   let barnCell = document.createElement('td');
   let nameCell = document.createElement('td');
   let totalCell = document.createElement('td');
@@ -135,7 +135,7 @@ function renderBarnTableHeader() {
   barnTableParent.appendChild(headerRow);
 }
 
-function renderAllContentRows() {
+function renderAllUnicornContentRows() {
   allUnicorns.forEach(unicorn => unicorn.renderContentRow());
 }
 
@@ -171,7 +171,9 @@ function getFavoriteFoods() {
 
 function showListOfFavFoods() {
   getFavoriteFoods();
+
   let parentUl = document.getElementById('food-list');
+
   for (var i = 0; i < favFoods.length; i++) {
     let liElement = document.createElement('li');
     console.log(liElement);
@@ -201,9 +203,9 @@ function handleSubmit(event) {
   //sort them by barn property
   sortUnicornsByBarn();
   //render the header of the table so it appears on top
-  renderTableHeader();
+  renderUnicornTableHeader();
   //render all other content
-  renderAllContentRows();
+  renderAllContentUnicornRows();
   //display total unicorns on page
   displayTotalUnicorns();
   //display tables containing unicorns by barn
